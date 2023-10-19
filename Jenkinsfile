@@ -14,7 +14,7 @@ pipeline {
                             [$class: 'CloneOption', noTags: false, reference: '', shallow: false],
                             [$class: 'CleanBeforeCheckout'],
                         ],
-                        userRemoteConfigs: [[url: 'https://github.com/Timodo22/pijplijn.git']]
+                        userRemoteConfigs: [[url: 'https://github.com/Maxc040/Jenkins.git']]
                     ])
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
         stage('Deploy to Dev Server') {
             steps {
                 // Copy HTML files from the "test" branch to the test server.
-                sh 'sshpass -p student scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Multipipeline_test/index.html student@192.168.1.18:/var/www/html/'
+                sh 'sshpass -p student scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Multipipeline_test/index.html student@192.168.1.24:/var/www/html/'
             }
         }
 
@@ -50,7 +50,7 @@ pipeline {
 
         stage('Deploy to main Server') {
             steps {
-                sh 'sshpass -p student scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Multipipeline_test/index.html student@192.168.1.25:/var/www/html/'
+                sh 'sshpass -p student scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Multipipeline_test/index.html student@192.168.1.22:/var/www/html/'
             }
         }
     }
