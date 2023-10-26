@@ -4,11 +4,11 @@ pipeline {
     stages {
         stage('Checkout from GitHub (Test)') {
             steps {
-                // Check out your code from the "test" branch on GitHub.
+                // Check out your code from the "main" branch on GitHub.
                 script {
                     def scmVars = checkout([
                         $class: 'GitSCM',
-                        branches: [[name: 'test']],
+                        branches: [[name: 'main']],
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [
                             [$class: 'CloneOption', noTags: false, reference: '', shallow: false],
