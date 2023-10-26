@@ -35,19 +35,6 @@ pipeline {
         }
 
 
-        stage('Deploy to test') {
-            steps {
-                sh 'sshpass -p student scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pipeline_main/index.html student@192.168.1.26:/var/www/html/'
-            }
-        }
-                stage('Confirmation test server') {
-            steps {
-                // Prompt for confirmation before proceeding.
-                input(id: 'confirmDeployment', message: 'Review the test environment. If everything looks good, approve for Development.', ok: 'Deploy')
-            }
-        }
-
-
         stage('Deploy to main Server') {
             steps {
                 sh 'sshpass -p student scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pipeline_main/index.html student@192.168.1.22:/var/www/html/'
