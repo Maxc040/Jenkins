@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout from GitHub (Test)') {
+        stage('Checkout from GitHub') {
             steps {
-                // Check out your code from the "main" branch on GitHub.
                 script {
                     def scmVars = checkout([
                         $class: 'GitSCM',
@@ -22,29 +21,29 @@ pipeline {
 
         stage('Deploy to Dev Server') {
             steps {
-                // Deze stap is uitgeschakeld voor nu.
+                sh "sshpass -p student scp -o StrictHostKeyChecking=no ${currentBuild.workspace}/index.html student@192.168.1.24:/var/www/html/"
             }
         }
 
         stage('Confirmation Dev') {
             steps {
-                // Deze stap is uitgeschakeld voor nu.
+                input(id: 'confirmDeployment', message: 'Review the test environment. If everything looks good, approve for Development.', ok: 'Deploy')
             }
         }
 
-        stage('Deploy to test') {
+        stage('Deploy to Test Server') {
             steps {
-                // Deze stap is uitgeschakeld voor nu.
+                sh "sshpass -p student scp -o StrictHostKeyChecking=no ${currentBuild.workspace}/index.html student@192.168.1.23:/var/www/html/"
             }
         }
 
-        stage('Confirmation test server') {
+        stage('Confirmation Test Server') {
             steps {
-                // Deze stap is uitgeschakeld voor nu.
+                input(id: 'confirmDeployment', message: 'Review the test environment. If everything looks good, approve for Development.', ok: 'Deploy')
             }
         }
 
-        stage('Deploy to main Server') {
+        stage('Deploy to Main Server') {
             steps {
                 sh "sshpass -p student scp -o StrictHostKeyChecking=no ${currentBuild.workspace}/index.html student@192.168.1.22:/var/www/html/"
             }
