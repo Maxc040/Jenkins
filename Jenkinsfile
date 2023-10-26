@@ -37,7 +37,7 @@ pipeline {
 
         stage('Deploy to test') {
             steps {
-                sh 'sshpass -p student scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspacepipeline_main/index.html student@192.168.1.24:/var/www/html/'
+                sh 'sshpass -p student scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pipeline_main/index.html student@192.168.1.24:/var/www/html/'
             }
         }
                 stage('Confirmation test server') {
