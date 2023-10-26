@@ -22,39 +22,31 @@ pipeline {
 
         stage('Deploy to Dev Server') {
             steps {
-                // Copy HTML files from the "test" branch to the test server.
-               sh "sshpass -p student scp -v -o StrictHostKeyChecking=no ${currentBuild.workspace}/index.html student@192.168.1.24:/var/www/html/"
-
-
+                // Deze stap is uitgeschakeld voor nu.
             }
         }
 
         stage('Confirmation Dev') {
             steps {
-                // Prompt for confirmation before proceeding.
-                input(id: 'confirmDeployment', message: 'Review the test environment. If everything looks good, approve for Development.', ok: 'Deploy')
+                // Deze stap is uitgeschakeld voor nu.
             }
         }
-
 
         stage('Deploy to test') {
             steps {
-                   sh "sshpass -p student scp -o StrictHostKeyChecking=no ${currentBuild.workspace}/index.html student@192.168.1.23:/var/www/html/"
-
+                // Deze stap is uitgeschakeld voor nu.
             }
         }
-                stage('Confirmation test server') {
+
+        stage('Confirmation test server') {
             steps {
-                // Prompt for confirmation before proceeding.
-                input(id: 'confirmDeployment', message: 'Review the test environment. If everything looks good, approve for Development.', ok: 'Deploy')
+                // Deze stap is uitgeschakeld voor nu.
             }
         }
-
 
         stage('Deploy to main Server') {
             steps {
                 sh "sshpass -p student scp -o StrictHostKeyChecking=no ${currentBuild.workspace}/index.html student@192.168.1.22:/var/www/html/"
-
             }
         }
     }
